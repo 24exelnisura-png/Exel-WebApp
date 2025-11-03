@@ -1,0 +1,244 @@
+:root {
+    --color-primary: #0F4C75; /* Indigo/Deep Blue */
+    --color-secondary: #FFC300; /* Amber/Gold */
+    --color-background: #EAEAEA;
+    --color-canvas-bg: #FFFFFF;
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column; /* Mengubah menjadi kolom untuk menampung footer */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 1200px;
+    height: 90vh;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fcfcfc;
+}
+
+/* Header */
+.header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.artist {
+    color: var(--color-secondary);
+    text-shadow: 0 0 5px var(--color-secondary);
+    animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-glow {
+    from {
+        text-shadow: 0 0 5px var(--color-secondary), 0 0 10px var(--color-secondary);
+    }
+    to {
+        text-shadow: 0 0 10px var(--color-secondary), 0 0 20px var(--color-secondary);
+    }
+}
+
+/* Main Content & Canvas */
+main {
+    flex-grow: 1;
+    background-color: var(--color-canvas-bg);
+    position: relative; /* Penting untuk posisi absolut brush preview */
+    overflow: hidden;
+    cursor: none; /* Menyembunyikan kursor asli di atas area gambar */
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom Brush Preview Styling */
+#brushPreview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px; /* Default size */
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-primary); 
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    pointer-events: none; /* Memastikan klik/sentuhan melewati elemen ini ke kanvas di bawahnya */
+    transform: translate(-50%, -50%); /* Memusatkan lingkaran pada titik kursor */
+    z-index: 10;
+    opacity: 0.8;
+    display: none; /* Sembunyikan secara default */
+    transition: width 0.1s, height 0.1s; /* Transisi ukuran yang mulus */
+}
+
+/* Control Panel */
+.control-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: #333;
+    color: white;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    flex-wrap: wrap; /* Untuk responsivitas jika konten terlalu banyak */
+    gap: 15px; /* Spasi antar grup kontrol */
+}
+
+.drawing-tools {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-group label {
+    font-weight: 600;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Spasi antar tombol */
+    flex-wrap: wrap;
+}
+
+.action-buttons button {
+    padding: 10px 15px; /* Padding sedikit lebih kecil untuk menampung lebih banyak tombol */
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex; /* Untuk ikon dan teks */
+    align-items: center;
+    gap: 5px;
+}
+
+/* Default & Active State for Draw/Eraser */
+.action-btn {
+    background-color: #555; /* Warna default */
+    color: white;
+}
+
+.action-btn:hover {
+    background-color: #777;
+}
+
+.action-btn.active {
+    background-color: var(--color-secondary); /* Warna aktif */
+    color: var(--color-primary);
+}
+
+.action-btn.active:hover {
+    background-color: #FFD740;
+}
+
+
+.clear-btn {
+    background-color: #E74C3C;
+    color: white;
+}
+
+.clear-btn:hover {
+    background-color: #C0392B;
+}
+
+.save-btn {
+    background-color: #27AE60; /* Warna hijau untuk save */
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #2ECC71;
+}
+
+/* New Footer Styles */
+.app-footer {
+    width: 95%;
+    max-width: 1200px;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        min-height: 100vh;
+        align-items: flex-start;
+    }
+    .app-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+    .header {
+        border-radius: 0;
+    }
+    .control-panel {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+        border-radius: 0;
+    }
+    .drawing-tools {
+        width: 100%;
+        justify-content: space-around;
+    }
+    .control-group {
+        width: auto; /* Biarkan konten menentukan lebar */
+        justify-content: center;
+    }
+    .action-buttons {
+        width: 100%;
+        display: grid; /* Menggunakan grid untuk tata letak 2x2 */
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .action-buttons button {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .app-footer {
+        width: 100%;
+        font-size: 0.75rem;
+    }
+}
